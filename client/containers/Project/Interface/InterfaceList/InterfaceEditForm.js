@@ -824,6 +824,12 @@ class InterfaceEditForm extends Component {
             基本设置
           </h2>
           <div className="panel-sub">
+            <FormItem className="interface-edit-item" {...formItemLayout} label="接口代码">
+              {getFieldDecorator('code', {
+                initialValue: this.state.code,
+                rules: nameLengthLimit('接口代码')
+              })(<Input id="code" placeholder="接口代码" />)}
+            </FormItem>
             <FormItem className="interface-edit-item" {...formItemLayout} label="接口名称">
               {getFieldDecorator('title', {
                 initialValue: this.state.title,
@@ -906,7 +912,6 @@ class InterfaceEditForm extends Component {
                   initialValue: this.state.path,
                   rules: [
                     {
-                      required: true,
                       message: '请输入接口路径!'
                     }
                   ]

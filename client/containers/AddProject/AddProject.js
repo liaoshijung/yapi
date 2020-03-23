@@ -79,6 +79,7 @@ class ProjectList extends Component {
         values.icon = constants.PROJECT_ICON[0];
         values.color = pickRandomProperty(constants.PROJECT_COLOR);
         addProject(values).then(res => {
+          console.log(res);
           if (res.payload.data.errcode == 0) {
             form.resetFields();
             message.success('创建成功! ');
@@ -109,9 +110,14 @@ class ProjectList extends Component {
       <div className="g-row">
         <div className="g-row m-container">
           <Form>
+            <FormItem {...formItemLayout} label="项目ID">
+              {getFieldDecorator('project_id', {
+                rules: nameLengthLimit('项目ID')
+              })(<Input />)}
+            </FormItem>
             <FormItem {...formItemLayout} label="项目名称">
               {getFieldDecorator('name', {
-                rules: nameLengthLimit('项目')
+                rules: nameLengthLimit('项目名称')
               })(<Input />)}
             </FormItem>
 

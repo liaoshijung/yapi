@@ -8,9 +8,10 @@ class interfaceModel extends baseModel {
 
   getSchema() {
     return {
+      code: { type: String, required: true },
       title: { type: String, required: true },
       uid: { type: Number, required: true },
-      path: { type: String, required: true },
+      path: { type: String},
       method: { type: String, required: true },
       project_id: { type: Number, required: true },
       catid: { type: Number, required: true },
@@ -144,7 +145,7 @@ class interfaceModel extends baseModel {
   getByPath(project_id, path, method, select) {
     select =
       select ||
-      '_id title uid path method project_id catid edit_uid status add_time up_time type query_path req_query req_headers req_params req_body_type req_body_form req_body_other res_body_type custom_field_value res_body res_body_is_json_schema req_body_is_json_schema';
+      '_id code title uid path method project_id catid edit_uid status add_time up_time type query_path req_query req_headers req_params req_body_type req_body_form req_body_other res_body_type custom_field_value res_body res_body_is_json_schema req_body_is_json_schema';
     return this.model
       .find({
         project_id: project_id,
@@ -153,6 +154,20 @@ class interfaceModel extends baseModel {
       })
       .select(select)
       .exec();
+  }
+
+  getByCode(project_id, code, method, select) {
+    select =
+        select ||
+        '_id code title uid path method project_id catid edit_uid status add_time up_time type query_path req_query req_headers req_params req_body_type req_body_form req_body_other res_body_type custom_field_value res_body res_body_is_json_schema req_body_is_json_schema';
+    return this.model
+        .find({
+          project_id: project_id,
+          code: code,
+          method: method
+        })
+        .select(select)
+        .exec();
   }
 
   checkRepeat(id, path, method) {
@@ -234,7 +249,7 @@ class interfaceModel extends baseModel {
       .skip((page - 1) * limit)
       .limit(limit)
       .select(
-        '_id title uid path method project_id catid edit_uid api_opened status add_time up_time, index, tag'
+        '_id code title uid path method project_id catid edit_uid api_opened status add_time up_time, index, tag'
       )
       .exec();
   }
@@ -248,7 +263,7 @@ class interfaceModel extends baseModel {
       .skip((page - 1) * limit)
       .limit(limit)
       .select(
-        '_id title uid path method project_id catid edit_uid api_opened status add_time up_time, index, tag'
+        '_id code title uid path method project_id catid edit_uid api_opened status add_time up_time, index, tag'
       )
       .exec();
   }
@@ -317,7 +332,7 @@ class interfaceModel extends baseModel {
         custom_field_value: value
       })
       .select(
-        'title uid path method edit_uid status desc add_time up_time type query_path req_query req_headers req_params req_body_type req_body_form req_body_other res_body_type custom_field_value'
+        'title code uid path method edit_uid status desc add_time up_time type query_path req_query req_headers req_params req_body_type req_body_form req_body_other res_body_type custom_field_value'
       )
       .exec();
   }

@@ -42,6 +42,7 @@ class projectController extends baseController {
     };
     const group_id = 'number';
     const group_name = 'string';
+    const project_id = 'string';
     const project_type = {
       type: 'string',
       enum: ['private', 'public'],
@@ -59,6 +60,7 @@ class projectController extends baseController {
         basepath: basepath,
         '*group_id': group_id,
         group_name,
+        '*project_id': project_id,
         desc: desc,
         color,
         icon,
@@ -69,6 +71,7 @@ class projectController extends baseController {
         preName: name,
         basepath: basepath,
         '*group_id': group_id,
+        '*project_id': project_id,
         _id: id,
         cat,
         pre_script: desc,
@@ -198,7 +201,10 @@ class projectController extends baseController {
     if (checkRepeat > 0) {
       return (ctx.body = yapi.commons.resReturn(null, 401, '已存在的项目名'));
     }
-
+    checkRepeat = await this.Model.checkIdRepeat(params.name, params.group_id);
+    if (checkRepeat > 0) {
+      return (ctx.body = yapi.commons.resReturn(null, 401, '已存在的项目ID'));
+    }
     params.basepath = params.basepath || '';
 
     if ((params.basepath = this.handleBasepath(params.basepath)) === false) {
@@ -210,6 +216,7 @@ class projectController extends baseController {
       desc: params.desc,
       basepath: params.basepath,
       members: [],
+      project_id: params.project_id,
       project_type: params.project_type || 'private',
       uid: this.getUid(),
       group_id: params.group_id,
@@ -223,6 +230,7 @@ class projectController extends baseController {
     };
 
     let result = await this.Model.save(data);
+    console.log(result);
     let colInst = yapi.getInst(interfaceColModel);
     let catInst = yapi.getInst(interfaceCatModel);
     if (result._id) {
@@ -235,6 +243,7 @@ class projectController extends baseController {
         up_time: yapi.commons.time()
       });
       await catInst.save({
+        cat:'public',
         name: '公共分类',
         project_id: result._id,
         desc: '公共分类',
@@ -780,6 +789,7 @@ class projectController extends baseController {
         name: 'string',
         basepath: 'string',
         group_id: 'number',
+        project_id: 'string',
         desc: 'string',
         pre_script: 'string',
         after_script: 'string',
@@ -1086,6 +1096,7 @@ class projectController extends baseController {
       'uid',
       'env',
       'members',
+      { key: 'project_id', alias: 'projectId' },
       { key: 'group_id', alias: 'groupId' },
       { key: 'up_time', alias: 'upTime' },
       { key: 'add_time', alias: 'addTime' }

@@ -81,6 +81,16 @@ class AddInterfaceForm extends Component {
             )}
         </FormItem>
         <FormItem
+              {...formItemLayout}
+              label="接口代码"
+          >
+          {getFieldDecorator('code', {
+                  rules: nameLengthLimit('接口')
+              })(
+                <Input placeholder="接口代码" />
+              )}
+        </FormItem>
+        <FormItem
           {...formItemLayout}
           label="接口名称"
         >
@@ -97,7 +107,8 @@ class AddInterfaceForm extends Component {
         >
           {getFieldDecorator('path', {
             rules: [{
-              required: true, message: '请输入接口路径!'
+                required:true,
+                message: '请输入接口路径!'
             }]
           })(
             <Input onBlur={this.handlePath} addonBefore={prefixSelector} placeholder="/path" />

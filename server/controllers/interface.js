@@ -133,7 +133,7 @@ class interfaceController extends baseController {
       add: Object.assign(
         {
           '*project_id': 'number',
-          '*path': minLengthStringField,
+          '*code': minLengthStringField,
           '*title': minLengthStringField,
           '*method': minLengthStringField,
           '*catid': 'number'
@@ -144,7 +144,7 @@ class interfaceController extends baseController {
         {
           '*id': 'number',
           project_id: 'number',
-          path: minLengthStringField,
+          code: minLengthStringField,
           title: minLengthStringField,
           method: minLengthStringField,
           catid: 'number',
@@ -158,7 +158,7 @@ class interfaceController extends baseController {
           project_id: 'number',
           catid: 'number',
           title: minLengthStringField,
-          path: minLengthStringField,
+          code: minLengthStringField,
           method: minLengthStringField,
           message: minLengthStringField,
           dataSync: 'string'
@@ -349,7 +349,7 @@ class interfaceController extends baseController {
       ));
     }
 
-    let result = await this.Model.getByPath(params.project_id, params.path, params.method, '_id res_body');
+    let result = await this.Model.getByCode(params.project_id, params.code, params.method, '_id res_body');
 
     if (result.length > 0) {
       result.forEach(async item => {

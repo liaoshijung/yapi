@@ -11,6 +11,7 @@ class interfaceCase extends baseModel {
   getSchema() {
     return {
       casename: { type: String, required: true },
+      code: { type: String, required: true },
       uid: { type: Number, required: true },
       col_id: { type: Number, required: true },
       index: { type: Number, default: 0 },
