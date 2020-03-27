@@ -134,6 +134,7 @@ class interfaceController extends baseController {
         {
           '*project_id': 'number',
           '*code': minLengthStringField,
+          '*path': minLengthStringField,
           '*title': minLengthStringField,
           '*method': minLengthStringField,
           '*catid': 'number'
@@ -198,7 +199,7 @@ class interfaceController extends baseController {
    */
   async add(ctx) {
     let params = ctx.params;
-
+    console.log(ctx.params);
     if (!this.$tokenAuth) {
       let auth = await this.checkAuth(params.project_id, 'project', 'edit');
 

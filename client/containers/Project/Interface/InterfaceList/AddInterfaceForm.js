@@ -39,6 +39,7 @@ class AddInterfaceForm extends Component {
     this.props.form.setFieldsValue({
       path: handleApiPath(val)
     })
+      console.log(this.props.form.path);
   }
   render() {
     const { getFieldDecorator, getFieldsError } = this.props.form;
