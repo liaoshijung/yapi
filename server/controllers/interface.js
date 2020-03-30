@@ -146,6 +146,7 @@ class interfaceController extends baseController {
           '*id': 'number',
           project_id: 'number',
           code: minLengthStringField,
+          path: minLengthStringField,
           title: minLengthStringField,
           method: minLengthStringField,
           catid: 'number',
@@ -158,6 +159,7 @@ class interfaceController extends baseController {
         {
           project_id: 'number',
           catid: 'number',
+          path: minLengthStringField,
           title: minLengthStringField,
           code: minLengthStringField,
           method: minLengthStringField,

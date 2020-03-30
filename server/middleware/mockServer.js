@@ -183,8 +183,19 @@ module.exports = async (ctx, next) => {
   let interfaceInst = yapi.getInst(interfaceModel);
 
   try {
-    newpath = path.substr(project.basepath.length);
-    interfaceData = await interfaceInst.getByPath(project._id, newpath, ctx.method);
+
+    if(path.endsWith("/rest")&&ctx.method==='POST'){
+      let reqBody = ctx.request.body;
+
+      let reqMethod = reqBody.method;
+
+      reqMethod = reqMethod.substr(project.project_id.length+1);
+      console.log(reqMethod);
+      interfaceData = await interfaceInst.getByCode(project._id, reqMethod, ctx.method);
+    }else{
+      newpath = path.substr(project.basepath.length);
+      interfaceData = await interfaceInst.getByPath(project._id, newpath, ctx.method);
+    }
     let queryPathInterfaceData = await interfaceInst.getByQueryPath(project._id, newpath, ctx.method);
     //处理query_path情况  url 中有 ?params=xxx
     if (!interfaceData || interfaceData.length != queryPathInterfaceData.length) {
@@ -224,6 +235,7 @@ module.exports = async (ctx, next) => {
 
     //处理动态路由
     if (!interfaceData || interfaceData.length === 0) {
+
       let newData = await interfaceInst.getVar(project._id, ctx.method);
 
       let findInterface;
@@ -297,7 +309,6 @@ module.exports = async (ctx, next) => {
           ) {
             ctx.request.body = ctx.request.body.fields;
           }
-          // console.log('body', ctx.request.body)
 
           res = mockExtra(yapi.commons.json_parse(interfaceData.res_body), {
             query: ctx.request.query,

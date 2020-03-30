@@ -238,6 +238,7 @@ class ProjectMessage extends Component {
       basepath,
       desc,
       project_type,
+      project_id,
       group_id,
       switch_notice,
       strice,
@@ -249,6 +250,7 @@ class ProjectMessage extends Component {
       basepath,
       desc,
       project_type,
+      project_id,
       group_id,
       switch_notice,
       strice,
@@ -315,8 +317,14 @@ class ProjectMessage extends Component {
           </Row>
           <hr className="breakline" />
           <Form>
-            <FormItem {...formItemLayout} label="项目ID">
+            <FormItem {...formItemLayout} label="内部ID">
               <span>{this.props.projectMsg._id}</span>
+            </FormItem>
+            <FormItem {...formItemLayout} label="项目ID">
+              {getFieldDecorator('project_id', {
+                initialValue: initFormValues.project_id,
+                rules: nameLengthLimit('项目ID')
+              })(<Input />)}
             </FormItem>
             <FormItem {...formItemLayout} label="项目名称">
               {getFieldDecorator('name', {

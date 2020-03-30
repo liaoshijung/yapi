@@ -912,6 +912,7 @@ class InterfaceEditForm extends Component {
                   initialValue: this.state.path,
                   rules: [
                     {
+                      required: true,
                       message: '请输入接口路径!'
                     }
                   ]

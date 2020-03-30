@@ -464,7 +464,7 @@ class View extends Component {
                       '//' +
                       location.hostname +
                       (location.port !== '' ? ':' + location.port : '') +
-                      `/mock/${this.props.currProject._id}${this.props.currProject.basepath}`+'?method='+`${this.props.curData.code}`,
+                      `/mock/${this.props.currProject._id}${this.props.currProject.basepath}${this.props.curData.path}`,
                     '_blank'
                   )
                 }
@@ -473,7 +473,7 @@ class View extends Component {
                   '//' +
                   location.hostname +
                   (location.port !== '' ? ':' + location.port : '') +
-                  `/mock/${this.props.currProject._id}${this.props.currProject.basepath}`+'?method='+`${this.props.curData.code}`
+                  `/mock/${this.props.currProject._id}${this.props.currProject.basepath}${this.props.curData.path}`
                 }
               </span>
             </Col>
