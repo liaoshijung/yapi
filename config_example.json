@@ -2,11 +2,11 @@
   "port": "3000",
   "adminAccount": "admin@admin.com",
   "db": {
-    "servername": "172.10.60.45",
+    "servername": "127.0.0.1",
     "DATABASE": "yapi",
     "port": 27017,
-    "user": "",
-    "pass": "",
+    "user": "test1",
+    "pass": "test1",
     "authSource": ""
   },
   "mail": {
